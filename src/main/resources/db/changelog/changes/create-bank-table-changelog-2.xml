@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet  author="ilein"  id="2">
+        <createTable  remarks="Банки"
+                      tableName="t_bank">
+            <column  name="id"  type="number(10)"  remarks="Идентификатор банка">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="t_bank_pk"/>
+            </column>
+            <column  name="name"  type="varchar2(255)" remarks="Наименование банка">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="bic"  type="varchar2(10)" remarks="БИК банка">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

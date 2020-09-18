@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet  author="ilein"  id="4">
+        <createTable  remarks="Вклады"
+                      tableName="t_investment">
+            <column  name="id"  type="number(10)"  remarks="Идентификатор вклада">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="t_investment_pk"/>
+            </column>
+            <column  name="client_id"  type="number" remarks="Клиент ИД">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="bank_id"  type="number" remarks="Банк ИД">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="create_date"  type="date" remarks="Дата открытия">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="perc"  type="number" remarks="Процент">
+                <constraints nullable="false"/>
+            </column>
+            <column  name="term_months"  type="number" remarks="Срок в месяцах">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
