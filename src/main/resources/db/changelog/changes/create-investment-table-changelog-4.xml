@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet  author="ilein"  id="4">
+    <changeSet  author="ilein"  id="9">
         <createTable  remarks="Вклады"
                       tableName="t_investment">
             <column  name="id"  type="number(10)"  remarks="Идентификатор вклада">
@@ -28,5 +28,28 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <createIndex  indexName="t_inv_client_id_idx"
+                      tableName="t_investment">
+            <column  name="client_id"/>
+        </createIndex>
+
+        <createIndex  indexName="t_inv_bank_id_idx"
+                      tableName="t_investment">
+            <column  name="bank_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint  baseColumnNames="client_id"
+                                      baseTableName="t_investment"
+                                      constraintName="t_investment_cl_id_fk"
+                                      referencedColumnNames="id"
+                                      referencedTableName="t_client"/>
+
+        <addForeignKeyConstraint  baseColumnNames="bank_id"
+                                  baseTableName="t_investment"
+                                  constraintName="t_investment_bnk_id_fk"
+                                  referencedColumnNames="id"
+                                  referencedTableName="t_bank"/>
+
     </changeSet>
 </databaseChangeLog>

@@ -6,11 +6,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet  author="ilein"  id="3">
+    <changeSet  author="ilein"  id="7">
         <createTable  remarks="Клиенты"
                       tableName="t_client">
             <column  name="id"  type="number(10)"  remarks="Идентификатор клиента">
-                <constraints nullable="false" primaryKey="true"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="t_client_pk"/>
             </column>
             <column  name="name"  type="varchar2(1024)" remarks="Наименование клиента">
                 <constraints nullable="false"/>
