@@ -34,7 +34,15 @@ public class Investment implements Serializable {
     @Column(name = "term_months", nullable = true, length = 9)
     private Integer termMonths;
 
-    protected Investment() {
+    public Investment() {
+    }
+
+    public Investment(Client client, Bank bank, Date createDate, Integer percent, Integer termMonths) {
+        this.client = client;
+        this.bank = bank;
+        this.createDate = createDate;
+        this.percent = percent;
+        this.termMonths = termMonths;
     }
 
     public Integer getId() {
@@ -90,5 +98,14 @@ public class Investment implements Serializable {
         return this.client != null
                 ? this.client.getName()
                 : null;
+    }
+
+    public String toString() {
+        return "id="+this.id+";"+
+                "client_id="+this.client.getId()+";"+
+                "bank_id="+this.bank.getId()+";"+
+                "createDate="+this.createDate.toString()+";"+
+                "percent="+this.percent.toString()+";"+
+                "termMonths="+this.termMonths.toString()+";";
     }
 }

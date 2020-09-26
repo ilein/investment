@@ -1,7 +1,6 @@
 package com.gdtest.investment.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javafx.scene.NodeBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,8 +28,7 @@ public class Bank implements Serializable {
     public Bank() {
     }
 
-    public Bank(Integer id, String name, String bic) {
-        this.id = id;
+    public Bank(String name, String bic) {
         this.name = name;
         this.bic = bic;
     }
@@ -57,5 +55,11 @@ public class Bank implements Serializable {
 
     public void setBic(String bic) {
         this.bic = bic;
+    }
+
+    public String toString() {
+        return "id="+this.id.toString()+";"+
+                "name="+this.name+";"+
+                "bic="+this.bic+";";
     }
 }

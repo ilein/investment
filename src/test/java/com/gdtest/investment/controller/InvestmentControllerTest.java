@@ -2,7 +2,12 @@ package com.gdtest.investment.controller;
 
 import com.gdtest.investment.InvestmentApplication;
 import com.gdtest.investment.dao.BankDao;
+import com.gdtest.investment.dao.ClientDao;
+import com.gdtest.investment.dao.InvestmentDao;
 import com.gdtest.investment.model.Bank;
+import com.gdtest.investment.model.Client;
+import com.gdtest.investment.model.Investment;
+import com.gdtest.investment.model.enums.LegalFormEnum;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,33 +23,52 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.transaction.Transactional;
 
+import java.sql.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = InvestmentApplication.class)
 @AutoConfigureMockMvc
 @Transactional
-class BankControllerTest {
-
+class InvestmentControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private InvestmentDao investmentDao;
+
+    @Autowired
+    private ClientDao clientDao;
 
     @Autowired
     private BankDao bankDao;
 
     @BeforeEach
     void setUp() {
-        Bank bank = new Bank("Name to Test", "099989586");
-        bankDao.save(bank);
+        Investment investment = investmentDao.save(new Investment(
+                clientDao.save(
+                        new Client("Test Client Name",
+                                "Test Client Short name",
+                                "Test Client Address",
+                                LegalFormEnum.OAO)),
+                bankDao.save(
+                        new Bank("Test Bank name", "999888777")),
+                Date.valueOf("2020-09-25"),
+                5,
+                12
+        ));
     }
 
     @Test
-    void shouldReadAll() throws Exception {
-        this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/banks/all")
+    void shouldReturnAll() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/investments/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath(
-                        "$[0].name", Matchers.is("Name to Test")));
+                        "$[0].client.name", Matchers.is("Test Client Name")));
     }
 }

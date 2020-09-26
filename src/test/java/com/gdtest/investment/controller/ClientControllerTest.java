@@ -1,8 +1,9 @@
 package com.gdtest.investment.controller;
 
 import com.gdtest.investment.InvestmentApplication;
-import com.gdtest.investment.dao.BankDao;
-import com.gdtest.investment.model.Bank;
+import com.gdtest.investment.dao.ClientDao;
+import com.gdtest.investment.model.Client;
+import com.gdtest.investment.model.enums.LegalFormEnum;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,29 +23,31 @@ import javax.transaction.Transactional;
 @SpringBootTest(classes = InvestmentApplication.class)
 @AutoConfigureMockMvc
 @Transactional
-class BankControllerTest {
-
+class ClientControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private BankDao bankDao;
+    private ClientDao clientDao;
 
     @BeforeEach
     void setUp() {
-        Bank bank = new Bank("Name to Test", "099989586");
-        bankDao.save(bank);
+        Client client = new Client("Test Client Name",
+                "Test Client Short Name",
+                "Test Client Address",
+                LegalFormEnum.OAO);
+        clientDao.save(client);
     }
 
     @Test
     void shouldReadAll() throws Exception {
-        this.mockMvc.perform(
-                MockMvcRequestBuilders.get("/banks/all")
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/clients/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath(
-                        "$[0].name", Matchers.is("Name to Test")));
+                        "$[0].name", Matchers.is("Test Client Name")));
     }
 }

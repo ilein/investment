@@ -34,6 +34,16 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client")
     private List<Investment> investments;
 
+    public Client() {
+    }
+
+    public Client(String name, String shortName, String address, LegalFormEnum legalForm) {
+        this.name = name;
+        this.shortName = shortName;
+        this.address = address;
+        this.legalForm = legalForm;
+    }
+
     public Integer getId() {
         return this.id;
     }
@@ -79,5 +89,13 @@ public class Client implements Serializable {
         return this.legalForm != null
                 ? this.legalForm.getLegalFormName()
                 : null;
+    }
+
+    public String toString() {
+        return "id="+this.id.toString()+";"+
+                "name="+this.name+";"+
+                "shortName="+this.shortName+";"+
+                "address="+this.address+";"+
+                "legalForm="+this.legalForm.getLegalFormName()+";";
     }
 }
